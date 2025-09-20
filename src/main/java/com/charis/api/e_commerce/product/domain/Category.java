@@ -1,20 +1,22 @@
 package com.charis.api.e_commerce.product.domain;
 
 import com.charis.api.e_commerce.common.model.BaseEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+
+@Data
 @Entity
-@Data()
 @EqualsAndHashCode(callSuper = true)
-public class Product extends BaseEntity {
+public class Category extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
-    private Long price;
+    private String description;
 
     @Column(nullable = false)
-    private Boolean isDeleted;
+    private Boolean isActive;
 }

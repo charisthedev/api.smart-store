@@ -1,9 +1,13 @@
 package com.charis.api.e_commerce.product.dtos;
 
-import jakarta.persistence.Id;
+import lombok.Data;
 
+import java.util.UUID;
+
+@Data
 public class ProductDto {
-    private Id id;
+    private UUID id;
     private Double price;
+    private String name;
 }
 
