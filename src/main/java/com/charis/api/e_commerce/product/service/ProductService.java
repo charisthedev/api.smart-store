@@ -3,6 +3,8 @@ package com.charis.api.e_commerce.product.service;
 import com.charis.api.e_commerce.common.dtos.IdResponse;
 import com.charis.api.e_commerce.common.exceptions.ResourceNotFoundException;
 import com.charis.api.e_commerce.common.utils.ServerResult;
+import com.charis.api.e_commerce.product.domain.Category;
+import com.charis.api.e_commerce.product.dtos.CreateProductDto;
 import com.charis.api.e_commerce.product.dtos.ProductDto;
 import com.charis.api.e_commerce.product.domain.Product;
 import com.charis.api.e_commerce.product.mappers.ProductMapper;
@@ -20,6 +22,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
+    private final CategoryService categoryService;
 
     public List<ProductDto> getProducts() {
         return productRepository.findAll()
@@ -28,20 +31,22 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    public ServerResult<IdResponse> createProduct(ProductDto dto) {
+    public ServerResult<IdResponse> createProduct(CreateProductDto dto) {
+        Category category = categoryService.getCategoryById(dto.getCategoryId());
         Product product = productMapper.toEntity(dto);
+        product.setCategory(category);
         Product saved = productRepository.save(product);
-        return new ServerResult("successfully created product",new IdResponse(saved.getId()));
+        return new ServerResult<>("successfully created product",new IdResponse(saved.getId()));
     }
 
     public ServerResult<ProductDto> getProductById(UUID id){
         return productRepository.findById(id).map(product1 -> new ServerResult<ProductDto>("product retrieved successfully",productMapper.toDto(product1))).orElseThrow(() -> new ResourceNotFoundException("Product not found"));
     }
 
-    public ServerResult updateProduct(UUID id, ProductDto prod) {
+    public ServerResult<?> updateProduct(UUID id, ProductDto prod) {
         Product product = productMapper.toEntity(prod);
         this.updateProductRepo(id,product);
-        return new ServerResult("product updated");
+        return new ServerResult<>("product updated");
     }
 
     private Product updateProductRepo(UUID id, Product prod){

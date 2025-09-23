@@ -2,8 +2,10 @@ package com.charis.api.e_commerce.product.controllers;
 
 import com.charis.api.e_commerce.common.dtos.IdResponse;
 import com.charis.api.e_commerce.common.utils.ServerResult;
+import com.charis.api.e_commerce.product.dtos.CreateProductDto;
 import com.charis.api.e_commerce.product.dtos.ProductDto;
 import com.charis.api.e_commerce.product.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController()
-@RequestMapping("/products")
+@RequestMapping("api/products")
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
@@ -27,7 +29,7 @@ public class ProductController {
     }
 
     @PostMapping()
-    public ServerResult<IdResponse> createProduct(@RequestBody ProductDto prod){
+    public ServerResult<IdResponse> createProduct(@Valid @RequestBody CreateProductDto prod){
         return this.productService.createProduct(prod);
     }
 
