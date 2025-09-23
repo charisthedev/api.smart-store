@@ -4,10 +4,12 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
+import lombok.Data;
 
 import java.util.Set;
 import java.util.UUID;
 
+@Data
 public class CreateProductDto {
     @NotNull
     @DecimalMin(value = "0.01",inclusive = true,message = "Price must be greater than 0")
@@ -23,7 +25,7 @@ public class CreateProductDto {
     private Integer quantity;
 
     @NotNull(message = "product category is required")
-    private UUID category;
+    private UUID categoryId;
 
     private Set<String> images;
 }

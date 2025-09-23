@@ -13,5 +13,6 @@ public class ProductDto {
     private Integer quantity;
     private Set<String> images;
     private String thumbNail;
+    private UUID category;
 }
 

@@ -17,14 +17,4 @@ public class CreateCategoryDto {
     private UUID parentCategory;
 
     private Boolean isActive;
-
-
-    public static Category fromDto(CreateCategoryDto dto, Category parentCategory) {
-        Category category = new Category();
-        category.setName(dto.getName());
-        category.setDescription(dto.getDescription());
-        category.setIsActive(dto.getIsActive() != null ? dto.getIsActive() : true);
-        category.setParentCategory(parentCategory);
-        return category;
-    }
 }

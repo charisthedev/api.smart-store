@@ -3,6 +3,7 @@ package com.charis.api.e_commerce.product.service;
 import com.charis.api.e_commerce.common.dtos.IdResponse;
 import com.charis.api.e_commerce.common.exceptions.ResourceNotFoundException;
 import com.charis.api.e_commerce.common.utils.ServerResult;
+import com.charis.api.e_commerce.product.domain.Category;
 import com.charis.api.e_commerce.product.dtos.CreateProductDto;
 import com.charis.api.e_commerce.product.dtos.ProductDto;
 import com.charis.api.e_commerce.product.domain.Product;
@@ -21,6 +22,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
+    private final CategoryService categoryService;
 
     public List<ProductDto> getProducts() {
         return productRepository.findAll()
@@ -30,7 +32,9 @@ public class ProductService {
     }
 
     public ServerResult<IdResponse> createProduct(CreateProductDto dto) {
+        Category category = categoryService.getCategoryById(dto.getCategoryId());
         Product product = productMapper.toEntity(dto);
+        product.setCategory(category);
         Product saved = productRepository.save(product);
         return new ServerResult<>("successfully created product",new IdResponse(saved.getId()));
     }

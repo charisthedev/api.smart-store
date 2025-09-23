@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CategoryController {
     private final CategoryService categoryService;
 
-    @PostMapping("")
+    @PostMapping()
     public ResponseEntity<ServerResult<IdResponse>> createCategory(@Valid @RequestBody CreateCategoryDto body){
         return new ResponseEntity<ServerResult<IdResponse>>(categoryService.createCategory(body), HttpStatus.CREATED);
     }
