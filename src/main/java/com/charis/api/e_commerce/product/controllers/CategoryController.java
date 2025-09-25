@@ -26,6 +26,11 @@ public class CategoryController {
         return new ResponseEntity<>(new ServerResult<List<Category>>("Successfully fetched list of categories",categoryService.getCategories()),HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ServerResult<Category>> getCategoryById(@PathVariable UUID id){
+        return new ResponseEntity<>(new ServerResult<Category>("Successfully fetched category",categoryService.getCategoryById(id)),HttpStatus.OK);
+    }
+
     @PostMapping()
     public ResponseEntity<ServerResult<IdResponse>> createCategory(@Valid @RequestBody CreateCategoryDto body){
         return new ResponseEntity<ServerResult<IdResponse>>(categoryService.createCategory(body), HttpStatus.CREATED);
