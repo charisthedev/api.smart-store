@@ -27,6 +27,7 @@ public class ProductService {
     public List<ProductDto> getProducts() {
         return productRepository.findAll()
                 .stream()
+                .takeWhile((Product prod)->!prod.getIsDeleted())
                 .map(productMapper::toDto)
                 .collect(Collectors.toList());
     }
