@@ -7,4 +7,5 @@ import org.springframework.data.domain.Sort;
 public class BasePaginationDto {
     private Integer limit = 10;
     private Sort.Direction sort = Sort.Direction.ASC;
+    private String sortBy = "createdAt";
 }
