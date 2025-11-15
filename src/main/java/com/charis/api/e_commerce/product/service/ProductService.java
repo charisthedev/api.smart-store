@@ -41,7 +41,9 @@ public class ProductService {
     }
 
     public ServerResult<ProductDto> getProductById(UUID id){
-        return productRepository.findById(id).map(product1 -> new ServerResult<ProductDto>("product retrieved successfully",productMapper.toDto(product1))).orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+        return productRepository.findById(id)
+                .map(product1 -> new ServerResult<ProductDto>("product retrieved successfully",productMapper.toDto(product1)))
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
     }
 
     public ServerResult<?> updateProduct(UUID id, ProductDto prod) {

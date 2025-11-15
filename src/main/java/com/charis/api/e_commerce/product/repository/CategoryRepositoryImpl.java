@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
+public class CategoryRepositoryImpl implements CategoryRepositoryCustom {
 
     @PersistenceContext
     private EntityManager em;
