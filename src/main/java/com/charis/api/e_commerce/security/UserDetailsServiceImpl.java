@@ -17,8 +17,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
    @Override
    public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
-       UUID userId = UUID.fromString(userid);
-       User user = userService.getUserById(userId);
-       return UserPrincipal.from(user);
+       try {
+           UUID userId = UUID.fromString(userid);
+           User user = userService.getUserById(userId);
+           return UserPrincipal.from(user);
+       } catch (IllegalArgumentException ex) {
+           User user = userService.getUserByEmail(userid);
+           return UserPrincipal.from(user);
+       }
    }
 }
