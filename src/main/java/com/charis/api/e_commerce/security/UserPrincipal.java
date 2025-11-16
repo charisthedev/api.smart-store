@@ -44,7 +44,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return !user.getIs_deleted();
+        return true;
     }
 
     @Override
