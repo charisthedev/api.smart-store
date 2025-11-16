@@ -22,4 +22,8 @@ public class UserService {
         return userRepo.findByEmail(email)
                 .orElseThrow(()-> new ResourceNotFoundException("User Does not Exist"));
     }
+
+    public boolean existsByEmail(String email) {
+        return userRepo.existsByEmail(email);
+    }
 }

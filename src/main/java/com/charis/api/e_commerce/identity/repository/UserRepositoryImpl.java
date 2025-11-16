@@ -22,4 +22,13 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 .getSingleResult();
        return Optional.ofNullable(user);
     }
+
+    @Override
+    @Transactional
+    public Boolean existsByEmail(String email) {
+        Long count = em.createQuery("SELECT COUNT(u) FROM User u WHERE u.email = :email", Long.class)
+                .setParameter("email", email)
+                .getSingleResult();
+        return count > 0;
+    }
 }
