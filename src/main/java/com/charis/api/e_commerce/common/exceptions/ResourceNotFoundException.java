@@ -1,7 +1,9 @@
 package com.charis.api.e_commerce.common.exceptions;
 
-public class ResourceNotFoundException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+
+public class ResourceNotFoundException extends BaseException {
     public ResourceNotFoundException(String message){
-        super(message);
+        super(message, HttpStatus.NOT_FOUND.toString(), HttpStatus.NOT_FOUND);
     }
 }

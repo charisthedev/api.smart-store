@@ -1,18 +1,18 @@
 package com.charis.api.e_commerce.identity.domain;
 
 import com.charis.api.e_commerce.common.model.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.Instant;
 
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(name = "users")
 public class User extends BaseEntity {
     @Column(nullable = false)
     private String first_name;
@@ -20,7 +20,7 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String last_name;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String email;
 
     @Column(nullable = false)
@@ -35,17 +35,19 @@ public class User extends BaseEntity {
     @Column()
     private Instant date_of_birth;
 
+    @Builder.Default
     @Column(nullable = false,columnDefinition = "BOOLEAN DEFAULT TRUE")
-    private Boolean is_active;
+    private Boolean is_active = true;
 
-
+    @Builder.Default
     @Column(nullable = false,columnDefinition = "BOOLEAN DEFAULT FALSE")
-    private Boolean is_deleted;
+    private Boolean is_deleted = false;
 
     @Column()
     private Instant deleted_at;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(nullable = false,columnDefinition = "varchar(20) default 'USER'")
-    private UserRole role ;
+    private UserRole role = UserRole.USER;
 }
