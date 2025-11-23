@@ -4,6 +4,7 @@ import com.charis.api.e_commerce.identity.dtos.AuthResponse;
 import com.charis.api.e_commerce.identity.dtos.SignUpDto;
 import com.charis.api.e_commerce.identity.usecase.UserRegistrationUseCase;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class AuthController {
     private final UserRegistrationUseCase userRegistrationUseCase;
 
     @PostMapping("/signup")
-    public ResponseEntity<AuthResponse> signup(@RequestBody SignUpDto signUpDto) {
+    public ResponseEntity<AuthResponse> signup(@Valid @RequestBody SignUpDto signUpDto) {
        return new ResponseEntity<AuthResponse>(userRegistrationUseCase.execute(signUpDto), HttpStatus.OK);
     }
 }
