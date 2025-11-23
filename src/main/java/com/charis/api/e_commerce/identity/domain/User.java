@@ -1,20 +1,18 @@
 package com.charis.api.e_commerce.identity.domain;
 
 import com.charis.api.e_commerce.common.model.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.Instant;
 
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
+@Table(name = "users")
 public class User extends BaseEntity {
     @Column(nullable = false)
     private String first_name;
