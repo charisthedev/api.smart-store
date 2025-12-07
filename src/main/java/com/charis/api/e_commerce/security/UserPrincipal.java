@@ -1,6 +1,8 @@
 package com.charis.api.e_commerce.security;
 
 import com.charis.api.e_commerce.identity.domain.User;
+import com.charis.api.e_commerce.identity.domain.UserRole;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -49,6 +51,10 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.getEmail_verified_at() != null;
+        return true; // TODO: Enable email verification check later
+    }
+
+    public User getUser() {
+        return user;
     }
 }

@@ -48,6 +48,6 @@ public class User extends BaseEntity {
 
     @Builder.Default
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false,columnDefinition = "varchar(20) default 'USER'")
+    @Column(nullable = false)
     private UserRole role = UserRole.USER;
 }
