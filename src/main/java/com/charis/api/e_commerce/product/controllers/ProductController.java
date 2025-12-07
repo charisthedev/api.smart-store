@@ -28,12 +28,12 @@ public class ProductController {
         return this.productService.getProductById(id);
     }
 
-    @PostMapping()
+    @PostMapping("/merchant")
     public ServerResult<IdResponse> createProduct(@Valid @RequestBody CreateProductDto prod){
         return this.productService.createProduct(prod);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/merchant/{id}")
     public ServerResult updateProduct(@RequestBody ProductDto prod, @PathVariable UUID id){
         return this.productService.updateProduct(id,prod);
     }
