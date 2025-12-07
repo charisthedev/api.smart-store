@@ -5,7 +5,6 @@ import com.charis.api.e_commerce.identity.domain.User;
 import com.charis.api.e_commerce.identity.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -14,7 +13,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepo;
-    private final PasswordEncoder passwordEncoder;
 
     public User getUserById(UUID id) {
         return userRepo.findById(id)
@@ -27,7 +25,6 @@ public class UserService {
     }
 
     public User createUser(@NotNull User user) {
-        user.setPassword_hash(passwordEncoder.encode(user.getPassword_hash()));
         return userRepo.save(user);
     }
 
