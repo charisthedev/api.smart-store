@@ -43,6 +43,7 @@ public class SecurityConfig {
     private String jwtSecret;
 
     private final CustomAuthenticationProvider customAuthenticationProvider;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
 
     @Bean
@@ -62,10 +63,11 @@ public class SecurityConfig {
                 )
                 .authenticationProvider(customAuthenticationProvider)
                 .exceptionHandling(ex -> ex
-                        .authenticationEntryPoint(authenticationEntryPoint())
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                         .accessDeniedHandler(accessDeniedHandler())
                 )
                 .oauth2ResourceServer(oauth -> oauth
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                         .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()))
                 )
                 .build();
@@ -87,21 +89,6 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
         return config.getAuthenticationManager();
-    }
-
-    @Bean
-    public AuthenticationEntryPoint authenticationEntryPoint() {
-        return (request, response, authException) -> {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.setContentType("application/json");
-            response.getWriter().write("""
-        {
-           "status": 401,
-           "error": "Unauthorized",
-           "message": "Invalid or missing token"
-        }
-        """);
-        };
     }
 
     @Bean

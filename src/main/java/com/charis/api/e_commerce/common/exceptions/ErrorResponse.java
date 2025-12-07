@@ -9,5 +9,5 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ErrorResponse {
     private String message;
-    private int statusCode;
+    private int status;
 }
