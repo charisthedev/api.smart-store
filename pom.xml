@@ -22,7 +22,6 @@
 	</properties>
 
 	<dependencies>
-
 		<!-- SECURITY -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -58,6 +57,24 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+
+		<!-- LOGGING -->
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>7.4</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>1.5.23</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.5.23</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<!-- MAPSTRUCT -->
@@ -110,7 +127,6 @@
 			<version>RELEASE</version>
 			<scope>compile</scope>
 		</dependency>
-
 	</dependencies>
 
 	<build>
