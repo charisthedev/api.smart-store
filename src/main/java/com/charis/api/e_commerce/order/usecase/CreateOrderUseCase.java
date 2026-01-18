@@ -24,10 +24,10 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class CreateOrderUseCase {
-
     private final OrderService orderService;
     private final ProductService productService;
     private final OrderMapper orderMapper;
+    private final PaymentGrpcClient paymentGrpcClient;
 
     @Transactional
     public OrderResponse execute(User user, CreateOrderRequest request) {
@@ -83,6 +83,16 @@ public class CreateOrderUseCase {
         Orders savedOrder = orderService.createOrder(order);
         log.info("Order created successfully with ID: {}", savedOrder.getId());
 
-        return orderMapper.toOrderResponse(savedOrder);
+        OrderResponse response = orderMapper.toOrderResponse(savedOrder);
+        
+        // Initiate Payment via gRPC
+        String paymentId = paymentGrpcClient.initiatePayment(response);
+        
+        if (paymentId != null) {
+            savedOrder.setPaymentId(paymentId);
+            orderService.createOrder(savedOrder); // Save updated order with paymentId
+        }
+
+        return response;
     }
 }

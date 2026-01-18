@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package payment;
+
+option java_multiple_files = true;
+option java_package = "com.charis.api.e_commerce.payment.grpc";
+option java_outer_classname = "PaymentProto";
+
+service PaymentService {
+  rpc InitiatePayment (PaymentRequest) returns (PaymentResponse);
+}
+
+message PaymentRequest {
+  string order_id = 1;
+  double amount = 2;
+  string currency = 3;
+  string user_id = 4;
+}
+
+message PaymentResponse {
+  string payment_id = 1;
+  string status = 2; // e.g., "PENDING", "COMPLETED", "FAILED"
+  string message = 3;
+}
+
+service PaymentCallbackService {
+  rpc OnPaymentSuccess (PaymentSuccessEvent) returns (PaymentCallbackResponse);
+}
+
+message PaymentSuccessEvent {
+  string payment_id = 1;
+  string order_id = 2;
+  double amount = 3;
+  string user_id = 4;
+}
+
+message PaymentCallbackResponse {
+  bool success = 1;
+  string message = 2;
+}

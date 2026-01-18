@@ -27,4 +27,16 @@ public class OrderServiceImpl implements OrderService {
         return ordersRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Order not found with ID: " + id));
     }
+
+    @Override
+    @Transactional
+    public void confirmPayment(String paymentId) {
+        Orders order = ordersRepository.findByPaymentId(paymentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found for payment ID: " + paymentId));
+        
+        order.setStatus(OrderStatus.PAID);
+        order.setPaymentStatus(PaymentStatus.SUCCESS);
+        
+        ordersRepository.save(order);
+    }
 }

@@ -41,14 +41,17 @@ public class Orders extends BaseEntity {
     @Column(nullable = false)
     private BigInteger total;
 
+    @Column(name = "payment_id")
+    private String paymentId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @OneToMany(
-            mappedBy = "order",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+        mappedBy = "order",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
     )
     private List<OrderItem> items = new ArrayList<>();
 }

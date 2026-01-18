@@ -13,5 +13,6 @@ public interface OrderMapper {
     @Mapping(source = "unitPrice", target = "price")
     OrderResponse.OrderItemResponse toOrderItemResponse(OrderItem item);
 
+    @Mapping(source = "user.id", target = "userId")
     OrderResponse toOrderResponse(Orders order);
 }
