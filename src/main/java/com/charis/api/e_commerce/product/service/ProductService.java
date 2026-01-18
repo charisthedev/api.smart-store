@@ -58,4 +58,9 @@ public class ProductService {
         product.setPrice(prod.getPrice());
         return productRepository.save(product);
     }
+
+    public Product getProductEntity(UUID id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with ID: " + id));
+    }
 }
